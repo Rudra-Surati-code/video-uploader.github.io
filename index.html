@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Video Uploader</title>
+		<style>
+			#card {
+				margin: auto;
+				display: block;
+				margin-top: 100px;
+				width: 150vh;
+				height: 30vw;
+			}
+			#video {
+				width: 80vh;
+				height: 20vw;
+				position: absolute;
+				margin-top: 105px;
+				top: 14vh;
+				left: 30vw;
+			}
+			#button {
+				color: transparent;
+			}
+			#button::-webkit-file-upload-button {
+				visibility: hidden;
+			}
+			#button::before {
+				content: 'Upload Your Video!';
+				color: lightgray;
+				display: inline-block;
+				background: lightcoral;
+				border: 1px solid #999;
+				border-radius: 3px;
+				padding: 5px 8px;
+				cursor: pointer;
+				font-weight: 700;
+				font-size: 10pt;
+			}
+			#button:hover::before {
+				border-color: black;
+				background: rgb(243, 149, 149);
+			}
+			#button:focus {
+				outline: none;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="file" id="button" name="files" onchange="selectedVideo(this);">
+		<div>
+			<video autoplay id="video" controls >
+				<source id="source" type="video/mp4">
+			</video>
+			<img src="https://cdn.pixabay.com/photo/2016/04/18/14/28/photo-frame-1336581_960_720.png" id="card">
+		</div>
+		<script>
+			function selectedVideo(self) {
+				var file = self.files[0];
+				var reader =  new FileReader();
+				reader.onload = function(e) {
+					var src = e.target.result;
+					var video = document.getElementById("video");
+					var source = document.getElementById("source");
+					source.setAttribute("src", src);
+					video.load();
+					video.play();
+				}
+				reader.readAsDataURL(file);
+			}
+		</script>
+		
+	</body>
+</html>
